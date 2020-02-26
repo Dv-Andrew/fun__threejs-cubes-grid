@@ -53,7 +53,7 @@ export default class App {
     this._scene.add(hemisphereLight);
 
     const pointLight = new THREE.PointLight(0xffffff, 0.5);
-    pointLight.position.set(25, 80, 50);
+    pointLight.position.set(35, 100, 30);
     pointLight.castShadow = true;
     this._scene.add(pointLight);
 
@@ -64,23 +64,14 @@ export default class App {
     plane.receiveShadow = true;
     this._scene.add( plane );
 
-    // const width = 5;
-    // for(let i = 0; i < 5; i++) {
-    //   const y = (width / 2) + i * (width * 1.5);
-    //   for(let j = 0; j < 5; j++) {
-    //     const x = (j * (width * 1.5)) - ((width * 2.5) + width / 2);
-    //     const cubeGeometry = new THREE.BoxGeometry(width, width, width);
-    //     const cubeMaterial = new THREE.MeshPhongMaterial({color: `hsl(${Math.floor(Math.random() * (360))}, 50%, 50%)`});
-    //     const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-    //     cube.position.y = y;
-    //     cube.position.x = x;
-    //     cube.castShadow = true;
-    //     cube.receiveShadow = true;
-    //     this._scene.add(cube);
-    //   }
-    // }
-
-    const cube = new Cube(this._scene, 1, 5, {x: 0, y: 0, z: 0});
+    const width = 5;
+    for(let i = 0; i < 5; i++) {
+      const y = (width / 2) + i * (width * 1.5);
+      for(let j = 0; j < 5; j++) {
+        const x = (j * (width * 1.5)) - ((width * 2.5) + width / 2);
+        new Cube(this._scene, i, width, {x, y, z: 0});
+      }
+    }
   }
 
   private _update() {
