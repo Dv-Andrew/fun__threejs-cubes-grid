@@ -1,1 +1,2 @@
-# test__threejs-cubes-grid
+# Three.js test
+
