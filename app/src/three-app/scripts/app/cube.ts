@@ -11,33 +11,54 @@ export default class Cube {
 
   private readonly _id: number;
 
-  private _planesGroup: any;
+  private readonly _planesGroup: any;
 
-  constructor(scene, id, width, position: CubePosition) {
+  constructor(scene, id: number, width: number, position: CubePosition) {
     this._scene = scene;
     this._id = id;
 
     this._planesGroup = new THREE.Group();
-    this._planesGroup.scale.set(width, width, width);
     this._scene.add(this._planesGroup);
 
-    this._setPlane("x",  -Math.PI * 0.5, 0xff0000); // top
-    this._setPlane("x",  Math.PI * 0.5, 0xff0000); // bottom
-    this._setPlane("y",  -Math.PI * 0.5, 0x00ff00); // left-side
-    this._setPlane("y",  Math.PI * 0.5, 0x00ff00); // right-side
-    this._setPlane("y",  0, 0x0000ff); // front
-    this._setPlane("y",  Math.PI, 0x0000ff); // back
+    this._setPlane('top', position, width, 0xff0000);
+    this._setPlane('bottom', position, width, 0xff0000);
+    this._setPlane('left', position, width, 0x00ff00);
+    this._setPlane('right', position, width, 0x00ff00);
+    this._setPlane('front', position, width, 0x0000ff);
+    this._setPlane('back', position, width, 0x0000ff);
   }
 
-  private _setPlane(axis, angle, color) {
-    const planeGeometry = new THREE.PlaneGeometry(1, 1, 1, 1);
-    planeGeometry.translate(0, 0, 0.5);
-    if (axis === 'y') {
-      planeGeometry.rotateY(angle);
-    } else {
-      planeGeometry.rotateX(angle);
+  private _setPlane(type, cubePosition: CubePosition, cubeWidth: number, color) {
+    const planeGeometry = new THREE.PlaneGeometry(cubeWidth, cubeWidth, 1, 1);
+    switch (type) {
+      case 'top':
+        planeGeometry.rotateX(-Math.PI * 0.5);
+        planeGeometry.translate(cubePosition.x, cubePosition.y + cubeWidth / 2, cubePosition.z);
+        break;
+      case 'bottom':
+        planeGeometry.rotateX(Math.PI * 0.5);
+        planeGeometry.translate(cubePosition.x, cubePosition.y - cubeWidth / 2, cubePosition.z);
+        break;
+      case 'left':
+        planeGeometry.rotateY(-Math.PI * 0.5);
+        planeGeometry.translate(cubePosition.x - cubeWidth / 2, cubePosition.y, cubePosition.z);
+        break;
+      case 'right':
+        planeGeometry.rotateY(Math.PI * 0.5);
+        planeGeometry.translate(cubePosition.x + cubeWidth / 2, cubePosition.y, cubePosition.z);
+        break;
+      case 'front':
+        planeGeometry.translate(cubePosition.x, cubePosition.y, cubePosition.z + cubeWidth / 2);
+        break;
+      case 'back':
+        planeGeometry.rotateY(Math.PI);
+        planeGeometry.translate(cubePosition.x, cubePosition.y, cubePosition.z - cubeWidth / 2);
+        break;
+      default:
+        planeGeometry.translate(cubePosition.x, cubePosition.y, cubePosition.z);
+        break;
     }
-    const plane = new THREE.Mesh(planeGeometry, new THREE.MeshPhongMaterial({color: color, side: THREE.DoubleSide}));
+    const plane = new THREE.Mesh(planeGeometry, new THREE.MeshPhongMaterial({color: color}));
     plane.castShadow = true;
     plane.receiveShadow = true;
     this._planesGroup.add(plane);
