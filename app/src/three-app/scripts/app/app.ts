@@ -1,6 +1,8 @@
 import * as THREE from 'three';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
 
+import Cube from './cube';
+
 export default class App {
   private _previousTime: number;
   private _fps: number;
@@ -62,21 +64,23 @@ export default class App {
     plane.receiveShadow = true;
     this._scene.add( plane );
 
-    const width = 5;
-    for(let i = 0; i < 5; i++) {
-      const y = (width / 2) + i * (width * 1.5);
-      for(let j = 0; j < 5; j++) {
-        const x = (j * (width * 1.5)) - ((width * 2.5) + width / 2);
-        const cubeGeometry = new THREE.BoxGeometry(width, width, width);
-        const cubeMaterial = new THREE.MeshPhongMaterial({color: `hsl(${Math.floor(Math.random() * (360))}, 50%, 50%)`});
-        const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-        cube.position.y = y;
-        cube.position.x = x;
-        cube.castShadow = true;
-        cube.receiveShadow = true;
-        this._scene.add(cube);
-      }
-    }
+    // const width = 5;
+    // for(let i = 0; i < 5; i++) {
+    //   const y = (width / 2) + i * (width * 1.5);
+    //   for(let j = 0; j < 5; j++) {
+    //     const x = (j * (width * 1.5)) - ((width * 2.5) + width / 2);
+    //     const cubeGeometry = new THREE.BoxGeometry(width, width, width);
+    //     const cubeMaterial = new THREE.MeshPhongMaterial({color: `hsl(${Math.floor(Math.random() * (360))}, 50%, 50%)`});
+    //     const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+    //     cube.position.y = y;
+    //     cube.position.x = x;
+    //     cube.castShadow = true;
+    //     cube.receiveShadow = true;
+    //     this._scene.add(cube);
+    //   }
+    // }
+
+    const cube = new Cube(this._scene, 1, 5, {x: 0, y: 0, z: 0});
   }
 
   private _update() {
