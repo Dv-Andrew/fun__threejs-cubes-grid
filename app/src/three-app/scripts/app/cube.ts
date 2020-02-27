@@ -14,19 +14,20 @@ export default class Cube {
   private readonly _planesGroup: any;
 
   constructor(scene, id: number, width: number, position: CubePosition) {
-    this._id = id;
-
     this._scene = scene;
 
     this._planesGroup = new THREE.Group();
     this._scene.add(this._planesGroup);
 
-    this._setPlane('top', position, width, `hsl(${Math.random() * 360}, 50%, 50%)`);
-    this._setPlane('bottom', position, width, `hsl(${Math.random() * 360}, 50%, 50%)`);
-    this._setPlane('left', position, width, `hsl(${Math.random() * 360}, 50%, 50%)`);
-    this._setPlane('right', position, width, `hsl(${Math.random() * 360}, 50%, 50%)`);
-    this._setPlane('front', position, width, `hsl(${Math.random() * 360}, 50%, 50%)`);
-    this._setPlane('back', position, width, `hsl(${Math.random() * 360}, 50%, 50%)`);
+    this._id = id;
+    this._planesGroup.cubeId = id;
+
+    this._setPlane('top', position, width, `hsl(${Math.random() * 360}, 60%, 50%)`);
+    this._setPlane('bottom', position, width, `hsl(${Math.random() * 360}, 60%, 50%)`);
+    this._setPlane('left', position, width, `hsl(${Math.random() * 360}, 60%, 50%)`);
+    this._setPlane('right', position, width, `hsl(${Math.random() * 360}, 60%, 50%)`);
+    this._setPlane('front', position, width, `hsl(${Math.random() * 360}, 60%, 50%)`);
+    this._setPlane('back', position, width, `hsl(${Math.random() * 360}, 60%, 50%)`);
   }
 
   private _setPlane(type, cubePosition: CubePosition, cubeWidth: number, color) {

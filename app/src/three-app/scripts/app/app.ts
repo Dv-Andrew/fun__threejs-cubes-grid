@@ -73,7 +73,8 @@ export default class App {
       const y = (width / 2) + i * (width * 1.5);
       for(let j = 0; j < 5; j++) {
         const x = (j * (width * 1.5)) - ((width * 2.5) + width / 2);
-        new Cube(this._scene,(j + i) + 1, width, {x, y, z: 0});
+        const id = (j + i * width) + 1;
+        new Cube(this._scene,id, width, {x, y, z: 0});
       }
     }
 
