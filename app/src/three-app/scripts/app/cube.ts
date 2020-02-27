@@ -14,8 +14,9 @@ export default class Cube {
   private readonly _planesGroup: any;
 
   constructor(scene, id: number, width: number, position: CubePosition) {
-    this._scene = scene;
     this._id = id;
+
+    this._scene = scene;
 
     this._planesGroup = new THREE.Group();
     this._scene.add(this._planesGroup);
@@ -61,6 +62,7 @@ export default class Cube {
     const plane = new THREE.Mesh(planeGeometry, new THREE.MeshPhongMaterial({color: color}));
     plane.castShadow = true;
     plane.receiveShadow = true;
+    plane.name = 'cube_plane';
     this._planesGroup.add(plane);
   }
 

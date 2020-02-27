@@ -2,6 +2,7 @@ import * as THREE from 'three';
 import {OrbitControls} from 'three/examples/jsm/controls/OrbitControls';
 
 import Cube from './cube';
+import Picker from './picker';
 
 export default class App {
   private _previousTime: number;
@@ -64,7 +65,7 @@ export default class App {
     plane.receiveShadow = true;
     this._scene.add( plane );
 
-    const grid = new THREE.GridHelper( 200, 10 );
+    const grid = new THREE.GridHelper( 200, 20 );
     this._scene.add(grid);
 
     const width = 5;
@@ -72,9 +73,11 @@ export default class App {
       const y = (width / 2) + i * (width * 1.5);
       for(let j = 0; j < 5; j++) {
         const x = (j * (width * 1.5)) - ((width * 2.5) + width / 2);
-        new Cube(this._scene, (j + i) + 1, width, {x, y, z: 0});
+        new Cube(this._scene,(j + i) + 1, width, {x, y, z: 0});
       }
     }
+
+    new Picker(this._scene, this._camera);
   }
 
   private _update() {
